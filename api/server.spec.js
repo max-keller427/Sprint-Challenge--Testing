@@ -12,12 +12,20 @@ describe("server.js yoo", () => {
         });
     });
 
-    it("should return an empty array when there is no data in the db", () => {
+    it("should return an empty array", () => {
       const Games = [];
       return request(server)
         .get("/games")
         .then(res => {
-          expect(res.status).toBe(200);
+          expect(Array.isArray(res.body)).toBe(true);
+        });
+    });
+
+    it("should return data in json view", () => {
+      return request(server)
+        .get("/games")
+        .then(res => {
+          expect(res.type).toBe("application/json");
         });
     });
   });
